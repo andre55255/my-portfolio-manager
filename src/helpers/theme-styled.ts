@@ -17,6 +17,9 @@ export const lightTheme = {
     colorLabelForm: "#093E70", // Cor do label do formulário
     colorInputForm: "#C1D2E7", // Cor do input do formulário
     colorTextInputForm: "#1a1a1a", // Cor das letras do input do formulário
+
+    colorBackgroundAsideMenu: "#11101d", // Cor do menu aside
+    colorTextAsideMenu: "#fff" // Cor do texto do menu aside
 };
 
 export const darkTheme = {
@@ -38,4 +41,7 @@ export const darkTheme = {
     colorLabelForm: "#e0e0e0", // Cor do label do formulário
     colorInputForm: "#2c2c2c", // Cor do input do formulário
     colorTextInputForm: "#e0e0e0", // Cor das letras do input do formulário
+
+    colorBackgroundAsideMenu: "#2c2c2c", // Cor do menu aside
+    colorTextAsideMenu: "#e0e0e0" // Cor do texto do menu aside
 };

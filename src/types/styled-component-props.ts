@@ -13,5 +13,7 @@ export type StyledComponentProps = {
         colorLabelForm: string;
         colorInputForm: string;
         colorTextInputForm: string;
+        colorBackgroundAsideMenu: string;
+        colorTextAsideMenu: string;
     };
 };
