@@ -43,7 +43,7 @@ export default function LoginPageComponent() {
                 isFetching={isFetching}
                 handleSubmit={handleSubmit}
             />
-            <ForgotPassword>Esqueceu sua senha?</ForgotPassword>
+            <ForgotPassword onClick={() => navigate(routesPages.forgotPassword)}>Esqueceu sua senha?</ForgotPassword>
         </LoginContainer>
     );
 }
