@@ -9,5 +9,9 @@ export type StyledComponentProps = {
         textMenuColor: string;
         colorHamburgerIcon: string;
         loadingSpinner: string;
+        titleColor: string;
+        colorLabelForm: string;
+        colorInputForm: string;
+        colorTextInputForm: string;
     };
 };

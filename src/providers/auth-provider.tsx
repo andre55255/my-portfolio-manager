@@ -22,12 +22,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const login = async (accessToken: string) => {
         setCookies(COOKIE_ACCESS_TOKEN, accessToken);
-        navigate(routesPages.main);
+        navigate(routesPages.home);
     }
 
     const logout = () => {
         removeCookie(COOKIE_ACCESS_TOKEN);
-        navigate(routesPages.main);
+        navigate(routesPages.login);
     }
 
     const value = useMemo(

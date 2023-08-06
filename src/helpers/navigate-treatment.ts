@@ -17,11 +17,11 @@ export const navigateTreatment = ({
         removeCookie(COOKIE_ACCESS_TOKEN);
         removeCookie(COOKIE_REFRESH_TOKEN);
         removeCookie(COOKIE_USER_DATA);
-        navigate(routesPages.main);
+        navigate(routesPages.login);
         return;
     }
     if (status === 403) {
-        navigate(routesPages.main);
+        navigate(routesPages.home);
         return;
     }
 };
