@@ -41,6 +41,7 @@ export default function SelectPortfolio() {
     };
 
     useEffect(() => {
+        setPortfolioSelected(userInfo?.portfolioSelectedId);
         getPortfoliosToSelect();
     }, []);
 

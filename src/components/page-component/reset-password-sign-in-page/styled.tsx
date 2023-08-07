@@ -14,10 +14,3 @@ export const ContainerResetPassword = styled.div<StyledComponentProps>`
         padding: 0 250px;
     }
 `
-
-export const TitleResetPassword = styled.h2<StyledComponentProps>`
-    font-size: 1.3rem;
-    font-weight: 500;
-    color: ${props => props.theme.textColor};
-    margin-bottom: 3rem;
-`

@@ -4,7 +4,9 @@ export const routesPages = {
     
     home: "/home",
     resetPasswordSignIn: "/reset-password-sign-in",
-    configuration: "/configuration",
+    configuration: {
+        list: "/configuration-tokens"
+    },
     contactMe: "/contacts",
     experienceEducation: "/experience-education",
     experienceWork: "/experience-work",

@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../providers/auth-provider";
 import { ResetPasswordSignInType } from "../../../types/service-reset-password-signin-data";
-import { ContainerResetPassword, TitleResetPassword } from "./styled";
+import { ContainerResetPassword } from "./styled";
 import {
     validAccessToken,
     verifyResponseRequest,
@@ -11,6 +11,7 @@ import {
 import { handleResetPassword } from "../../../services/account/reset-password-sign-in";
 import { showToastSuccess } from "../../../helpers/toast-utils";
 import { routesPages } from "../../../helpers/routes-pages";
+import TitlePage from "../../title-page";
 
 export default function ResetPasswordSignInPageComponent() {
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ export default function ResetPasswordSignInPageComponent() {
 
     return (
         <ContainerResetPassword>
-            <TitleResetPassword>Edite sua senha</TitleResetPassword>
+            <TitlePage>Edite sua senha</TitlePage>
             <ScreenFormResetPasswordSignIn
                 isFetching={isFetching}
                 handleSubmit={handleSubmit}

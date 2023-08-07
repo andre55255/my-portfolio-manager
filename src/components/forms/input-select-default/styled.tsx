@@ -17,7 +17,6 @@ export const SelectField = styled.select<StyledComponentProps>`
     color:  ${props => props.theme.textColor};
     cursor: pointer;
     appearance: none;
-    min-width: 200px;
 
     &:focus {
         border-color: #00aaff;

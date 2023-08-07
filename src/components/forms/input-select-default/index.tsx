@@ -2,7 +2,7 @@ import { SelectObjectType } from "../../../types/select-object";
 import { ArrowIcon, SelectField, SelectWrapper } from "./styled";
 
 type InputSelectDefaultProps = {
-    labelDefaultOption: string;
+    labelDefaultOption?: string;
     options: SelectObjectType[];
     value?: string | number;
     handleChange: React.ChangeEventHandler<HTMLSelectElement>;
@@ -12,12 +12,14 @@ export default function InputSelectDefault({
     labelDefaultOption,
     options,
     value,
-    handleChange
+    handleChange,
 }: InputSelectDefaultProps) {
     return (
         <SelectWrapper>
             <SelectField onChange={handleChange} value={value}>
-                <option value="">{labelDefaultOption}</option>
+                {labelDefaultOption && (
+                    <option value="">{labelDefaultOption}</option>
+                )}
                 {options.map((item) => (
                     <option
                         key={`${item.label}${item.value}`}
@@ -27,7 +29,7 @@ export default function InputSelectDefault({
                     </option>
                 ))}
             </SelectField>
-            <ArrowIcon>&#9660;</ArrowIcon>
+            {/* <ArrowIcon>&#9660;</ArrowIcon> */}
         </SelectWrapper>
     );
 }

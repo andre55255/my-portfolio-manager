@@ -27,7 +27,7 @@ const allMenusAside: MenuProps[] = [
         roles: [ROLES.admin, ROLES.user],
     },
     {
-        href: routesPages.configuration,
+        href: routesPages.configuration.list,
         label: "Configurações",
         Icon: FiSettings,
         roles: [ROLES.admin],
