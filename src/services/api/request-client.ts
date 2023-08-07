@@ -1,6 +1,6 @@
+import { APIResponse } from "./../../../../my-portfolio/src/types/api-response";
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { api } from "./config-api";
-import { APIResponse } from "../../types/api-response";
 
 type RequestProps = {
     method: "POST" | "GET" | "PUT" | "DELETE" | "PATCH";
@@ -32,14 +32,26 @@ export async function requestClient<T>(
             if (axios.isAxiosError(err)) {
                 const errorAxios = err as AxiosError;
 
-                const responseData = errorAxios.response?.data as APIResponse<T>;
+                let responseData: APIResponse<T> = errorAxios.response
+                    ?.data as APIResponse<T>;
+                if (!responseData) {
+                    responseData = {
+                        success: false,
+                        message:
+                            errorAxios.response?.status === 401
+                                ? "Não autorizado, faça login novamente"
+                                : errorAxios.response?.status === 403
+                                ? "Acesso negado"
+                                : "Ops, falha inesperada ao realizar requisição. Desculpe-nos pelo transtorno",
+                    };
+                }
                 responseData.status = errorAxios.response?.status;
-
                 return responseData;
             }
-            throw new Error("Falha inesperada ao realizar requisição" + err);
+            throw new Error("Ops, falha inesperada ao realizar requisição. Desculpe-nos pelo transtorno" + err);
         }
     } catch (err) {
+        console.log(err);
         return {
             success: false,
             message:

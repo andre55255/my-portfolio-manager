@@ -4,21 +4,22 @@ import {
     FaBriefcase,
     FaProjectDiagram,
     FaStackExchange,
-    FaUsers
+    FaUsers,
+    FaLock
 } from "react-icons/fa";
 
 import { IconType } from "react-icons";
 import { routesPages } from "./routes-pages";
 import { ROLES } from "./constants";
 
-type MenuProps = {
+export type MenuProps = {
     href: string;
     Icon: IconType;
     label: string;
     roles: string[];
 };
 
-const allMenus: MenuProps[] = [
+const allMenusAside: MenuProps[] = [
     {
         href: routesPages.home,
         label: "Home",
@@ -82,11 +83,35 @@ const allMenus: MenuProps[] = [
 ];
 
 export const menusFiltered = (roles: string[]) => {
-    const menus = allMenus.filter((menu) => {
+    if (!roles) {
+        return [];
+    }
+
+    const menus = allMenusAside.filter((menu) => {
         return menu.roles.filter(role => {
             return roles.includes(role);
         });
     })
-    console.log(menus);
+    return menus;
+}
+
+const allMenusHeader: MenuProps[] = [
+    {
+        href: routesPages.resetPasswordSignIn,
+        label: "Alterar senha",
+        Icon: FaLock,
+        roles: [ROLES.admin, ROLES.user]
+    }
+]
+
+export const menusFilteredHeader = (roles: string[]) => {
+    if (!roles) {
+        return [];
+    }
+    const menus = allMenusHeader.filter((menu) => {
+        return menu.roles.filter(role => {
+            return roles.includes(role);
+        });
+    })
     return menus;
 }

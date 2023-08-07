@@ -6,4 +6,5 @@ export type UserInfoType = {
     email: string;
     phoneNumber?: string;
     roles: string[];
+    portfolioSelectedId?: number;
 }

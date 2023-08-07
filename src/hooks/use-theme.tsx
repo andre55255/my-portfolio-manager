@@ -26,6 +26,8 @@ export function useTheme(): UseThemeProps {
         
         localStorage.setItem(THEME_APPLICATION, newValue);
         setTheme(newValue);
+
+        window.location.reload();
     };
 
     const getTheme = () => theme === "light" ? lightTheme : darkTheme;

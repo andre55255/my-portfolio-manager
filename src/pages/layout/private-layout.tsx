@@ -24,9 +24,8 @@ export default function PrivateLayout({ children }: AuxProps) {
         validAccessToken(logout!!, navigate, accessToken);
         
         const result = await handleUserInfo({ accessToken: accessToken!! });
-
         verifyResponseRequest(result, logout!!, navigate);
-        setUserInfo && setUserInfo(result.object);
+        setUserInfo!!(result.object);
     };
 
     useEffect(() => {

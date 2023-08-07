@@ -3,6 +3,7 @@ export const routesPages = {
     forgotPassword: "/forgot-password",
     
     home: "/home",
+    resetPasswordSignIn: "/reset-password-sign-in",
     configuration: "/configuration",
     contactMe: "/contacts",
     experienceEducation: "/experience-education",

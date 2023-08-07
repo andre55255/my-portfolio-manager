@@ -1,6 +1,7 @@
 import { useState, ReactNode } from "react";
 import AsideMenu from "./aside-menu";
 import MainSection from "./main-section";
+import HeaderMenu from "./header-menu";
 
 type PrivateLayoutPageProps = {
     children: ReactNode;
@@ -15,6 +16,7 @@ export default function PrivateLayoutPage({
 
     return (
         <>
+            <HeaderMenu />
             <AsideMenu isOpen={isOpen} toggleSidebar={toggleSidebar} />
             <MainSection isOpen={isOpen}>{children}</MainSection>
         </>
