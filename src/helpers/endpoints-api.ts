@@ -2,6 +2,11 @@ export const endpointsApi = {
     account: {
         login: "/Account/Login",
         forgotPassword: "/Account/ForgotPassword",
-        userInfo: "/Account/UserInfo"
+        resetPasswordSignIn: "/Account/ResetPasswordSignIn",
+        setSelectedPortfolio: "/Account/SetPortfolioSelected",
+        userInfo: "/Account/UserInfo",
+    },
+    portfolio: {
+        getPortfoliosToSelect: "/Portfolio/GetPortfoliosToSelect"
     }
 }

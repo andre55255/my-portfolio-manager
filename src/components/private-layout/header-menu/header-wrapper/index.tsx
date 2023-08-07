@@ -1,15 +1,13 @@
 import { ReactNode } from "react";
-import { HeaderWrapperStyled, LabelHeaderNameStyled } from "./styled";
+import { HeaderWrapperStyled } from "./styled";
 
 type HeaderWrapperProps = {
     children: ReactNode;
-    label: string;
 }
 
-export default function HeaderWrapper({ children, label }: HeaderWrapperProps) {
+export default function HeaderWrapper({ children }: HeaderWrapperProps) {
     return (
         <HeaderWrapperStyled>
-            <LabelHeaderNameStyled>{label}</LabelHeaderNameStyled>
             {children}
         </HeaderWrapperStyled>
     );

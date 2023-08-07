@@ -13,6 +13,7 @@ import NotFoundPage from "../pages/public/not-found/index";
 import LoginPage from "../pages/public/login";
 import ForgotPasswordPage from "../pages/public/forgot-password";
 import HomePage from "../pages/private/home";
+import ResetPasswordSignInPage from "../pages/private/reset-password-sign-in";
 
 const Router = createBrowserRouter(
     createRoutesFromElements(
@@ -31,6 +32,7 @@ const Router = createBrowserRouter(
                 {/* Protected routes */}
                 <Route element={<ProtectedRoute />}>
                     <Route path={routesPages.home} element={<HomePage />} />
+                    <Route path={routesPages.resetPasswordSignIn} element={<ResetPasswordSignInPage />} />
                 </Route>
             </Route>
 

@@ -23,8 +23,9 @@ export const validAccessToken = (
         showToastError({ message: "Acesso negado, faça login" });
         logout();
         navigate(routesPages.login);
-        return;
+        return false;
     }
+    return true;
 };
 
 export const verifyResponseRequest = (
@@ -35,11 +36,15 @@ export const verifyResponseRequest = (
     if (result.status === 401) {
         logout();
         navigate(routesPages.login);
+        return false;
     }
     if (result.status === 403) {
         navigate(routesPages.home);
+        return false;
     }
     if (!result.success) {
         showToastError({ message: result.message });
+        return false;
     }
+    return true;
 };

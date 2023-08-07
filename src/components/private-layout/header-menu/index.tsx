@@ -7,6 +7,8 @@ import HeaderAvatar from "./header-avatar";
 import Dropdown from "./dropdown";
 import { routesPages } from "../../../helpers/routes-pages";
 import { menusFilteredHeader } from "../../../helpers/menus";
+import SelectPortfolio from "./select-portfolio";
+import { LabelHeaderNameStyled } from "./header-wrapper/styled";
 
 export default function HeaderMenu() {
     const navigate = useNavigate();
@@ -27,7 +29,9 @@ export default function HeaderMenu() {
 
     return (
         <>
-            <HeaderWrapper label={`Olá, ${userInfo?.firstname}`}>
+            <HeaderWrapper>
+                <SelectPortfolio />
+                <LabelHeaderNameStyled>{`Olá, ${userInfo?.firstname}`}</LabelHeaderNameStyled>
                 <HeaderAvatar
                     toggleDropdown={toggleDropdown}
                     name={userInfo?.firstname!!}
