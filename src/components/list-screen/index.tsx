@@ -1,4 +1,5 @@
 import { SelectColumnType, SelectObjectType } from "../../types/select-object";
+import Loading from "../loading";
 import TableComponent from "../table";
 import TitlePage from "../title-page";
 import { ButtonAdd, ContainerListStyled } from "./styled";
@@ -22,7 +23,7 @@ export default function ListScreenComponent({
     handleDelete,
     title,
     createRoute,
-    isFetching
+    isFetching,
 }: ListScreenComponentProps) {
     const navigate = useNavigate();
 
@@ -38,6 +39,7 @@ export default function ListScreenComponent({
                 editRoute={editRoute}
                 handleDelete={handleDelete}
             />
+            <Loading isFetching={isFetching} isArea={true} />
         </ContainerListStyled>
     );
 }
