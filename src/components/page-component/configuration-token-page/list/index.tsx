@@ -1,76 +1,79 @@
-import { styled } from "styled-components";
-import { StyledComponentProps } from "../../../../types/styled-component-props";
-import TitlePage from "../../../title-page";
-import { FaPlus } from "react-icons/fa";
-import Table from "../../../table/index";
-
-export const ContainerListStyled = styled.div<StyledComponentProps>`
-    padding: 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-`;
-
-export const ButtonAdd = styled.button<StyledComponentProps>`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: .5rem 1rem;
-    gap: .5rem;
-    border-radius: 5px;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    width: fit-content;
-    
-
-    background-color: ${props => props.theme.primaryColor};
-    color: ${props => props.theme.primaryTextColorBtn};
-    font-size: .8rem;
-
-    &:hover {
-        background-color: ${props => props.theme.primaryColorHover};
-    }
-
-    svg {
-        font-size: .9rem;
-        color: ${props => props.theme.primaryTextColorBtn};
-    }
-`
+import { useState, useEffect, useContext, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { ConfigurationType } from "../../../../types/service-configuration-data";
+import ListScreenComponent from "../../../list-screen";
+import { routesPages } from "../../../../helpers/routes-pages";
+import { SelectColumnType } from "../../../../types/select-object";
+import { AuthContext } from "../../../../providers/auth-provider";
+import {
+    validAccessToken,
+    verifyResponseRequest,
+} from "../../../../helpers/function-utils";
+import { handleConfigurationList } from "../../../../services/configuration/configuration-list-service";
 
 export default function ConfigurationTokenListPage() {
+    const navigate = useNavigate();
+    const { accessToken, logout } = useContext(AuthContext);
+
+    const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [configurations, setConfigurations] = useState<ConfigurationType[]>(
+        []
+    );
+
+    const handleListConfigurations = useCallback(async () => {
+        setIsFetching(true);
+
+        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
+        if (!isValidToken) return;
+
+        const resultReq = await handleConfigurationList(accessToken!!);
+        const isSuccess = verifyResponseRequest(resultReq, logout!!, navigate);
+        if (!isSuccess) return;
+
+        setConfigurations(resultReq.object?.items || []);
+        setIsFetching(false);
+    }, []);
+
+    const handleDelete = (id: string) => {
+        console.log(id);
+    };
+
+    const columns: SelectColumnType[] = [
+        {
+            label: "Id",
+            value: "id",
+            isVisible: true,
+        },
+        {
+            label: "Token",
+            value: "token",
+            isVisible: true,
+        },
+        {
+            label: "Valor",
+            value: "value",
+            isVisible: true,
+        },
+        {
+            label: "Extra",
+            value: "extra",
+            isVisible: true,
+        },
+    ];
+
+    useEffect(() => {
+        handleListConfigurations();
+    }, []);
+
     return (
-        <ContainerListStyled>
-            <TitlePage>Configurações</TitlePage>
-            <ButtonAdd><FaPlus /> Criar</ButtonAdd>
-            <Table 
-                columns={[
-                    {
-                        label: "Id",
-                        value: "id"
-                    },
-                    {
-                        label: "Nome",
-                        value: "nome"
-                    },
-                    {
-                        label: "Idade",
-                        value: "idade"
-                    }
-                ]}
-                data={[
-                    {
-                        id: "2",
-                        nome: "André Luiz Barros",
-                        idade: 18
-                    },
-                    {
-                        id: "4",
-                        nome: "Fernando",
-                        idade: 19
-                    }
-                ]}
-            />
-        </ContainerListStyled>
+        <ListScreenComponent
+            title="Configurações"
+            createRoute={routesPages.configuration.create}
+            editRoute={routesPages.configuration.edit}
+            handleDelete={handleDelete}
+            isFetching={isFetching}
+            columns={columns}
+            data={configurations}
+        />
     );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     ActionButtonsStyled,
     ButtonPaginationStyled,
@@ -12,18 +12,39 @@ import {
 } from "./styled";
 import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 import InputSelectDefault from "../forms/input-select-default";
-import { SelectObjectType } from "../../types/select-object";
+import { SelectColumnType, SelectObjectType } from "../../types/select-object";
+import { useNavigate } from "react-router-dom";
 
 interface RowData {
-    columns: SelectObjectType[];
+    columns: SelectColumnType[];
     data: any[];
+    editRoute: string;
+    handleDelete: (id: string) => void;
 }
 
-export default function TableComponent({ columns, data }: RowData) {
+export default function TableComponent({
+    columns,
+    data,
+    editRoute,
+    handleDelete,
+}: RowData) {
+    const navigate = useNavigate();
+
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [tableRows, setTableRows] = useState<any[]>([...data]);
     const [itemsPerPage, setItemsPerPage] = useState<number>(5);
     const [currentPage, setCurrentPage] = useState<number>(1);
+
+    const lastIndex = currentPage * itemsPerPage;
+    const firstIndex = lastIndex - itemsPerPage;
+    const currentItems =
+        tableRows && tableRows.length
+            ? tableRows.slice(firstIndex, lastIndex)
+            : [];
+
+    useEffect(() => {
+        setTableRows([...data]);
+    }, [data]);
 
     const filterQuantityItems: SelectObjectType[] = [
         {
@@ -47,6 +68,8 @@ export default function TableComponent({ columns, data }: RowData) {
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const searchTerm = event.target.value.toLowerCase();
         setSearchTerm(searchTerm);
+
+        if (!data) return;
 
         const filteredRows = data.filter((row: any) => {
             const searchTermLower = searchTerm.toLowerCase();
@@ -75,8 +98,12 @@ export default function TableComponent({ columns, data }: RowData) {
             tableRows[tableRows.length - 1][columnName];
 
         const sortedRows = [...tableRows].sort((rowA, rowB) => {
-            const valueA = rowA[columnName].toString().toLowerCase();
-            const valueB = rowB[columnName].toString().toLowerCase();
+            const valueA = rowA[columnName]
+                ? rowA[columnName].toString().toLowerCase()
+                : "";
+            const valueB = rowB[columnName]
+                ? rowB[columnName].toString().toLowerCase()
+                : "";
             return isAscending
                 ? valueA.localeCompare(valueB)
                 : valueB.localeCompare(valueA);
@@ -93,14 +120,16 @@ export default function TableComponent({ columns, data }: RowData) {
     const handleItemsPerPageChange = (
         event: React.ChangeEvent<HTMLSelectElement>
     ) => {
-        setItemsPerPage(parseInt(event.target.value));
+        setItemsPerPage(Number(event.target.value));
         setCurrentPage(1);
     };
 
     const renderColumns = () => {
+        const columnsFiltered = columns.filter((item) => item.isVisible);
+
         return (
             <>
-                {columns.map((item, index) => (
+                {columnsFiltered.map((item, index) => (
                     <TableHeaderStyled
                         key={`${item.value}${item.label}`}
                         onClick={() => handleSort(index)}
@@ -114,7 +143,15 @@ export default function TableComponent({ columns, data }: RowData) {
     };
 
     const renderRows = () => {
-        const keys = Object.keys(currentItems[0]);
+        const columnsFiltered = columns
+            .filter((item) => item.isVisible)
+            .map((x) => x.value);
+
+        if (!currentItems || !currentItems.length) return;
+
+        const keys = Object.keys(currentItems[0]).filter((item) =>
+            columnsFiltered.includes(item)
+        );
 
         return currentItems.map((row, index) => (
             <tr key={index}>
@@ -125,17 +162,21 @@ export default function TableComponent({ columns, data }: RowData) {
                 </>
                 <td>
                     <ActionButtonsStyled>
-                        <FaEdit className="edit" />
-                        <FaTrash className="delete" />
+                        <FaEdit
+                            className="edit"
+                            onClick={() =>
+                                navigate(editRoute.replace(":id", row["id"]))
+                            }
+                        />
+                        <FaTrash
+                            className="delete"
+                            onClick={() => handleDelete(row["id"])}
+                        />
                     </ActionButtonsStyled>
                 </td>
             </tr>
         ));
     };
-
-    const lastIndex = currentPage * itemsPerPage;
-    const firstIndex = lastIndex - itemsPerPage;
-    const currentItems = tableRows.slice(firstIndex, lastIndex);
 
     return (
         <ContainerStyled>

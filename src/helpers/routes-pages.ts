@@ -5,7 +5,9 @@ export const routesPages = {
     home: "/home",
     resetPasswordSignIn: "/reset-password-sign-in",
     configuration: {
-        list: "/configuration-tokens"
+        list: "/configuration-tokens",
+        create: "/configuration-tokens/create",
+        edit: "/configuration-tokens/edit/:id"
     },
     contactMe: "/contacts",
     experienceEducation: "/experience-education",

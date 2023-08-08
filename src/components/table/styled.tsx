@@ -70,7 +70,7 @@ export const TableBodyStyled = styled.tbody<StyledComponentProps>`
         transition: background-color 0.3s;
 
         &:hover {
-            background-color: ${(props) => props.theme.contentBackground};
+            background-color: ${(props) => props.theme.bodyBackground};
         }
 
         td {

@@ -6,6 +6,9 @@ export const endpointsApi = {
         setSelectedPortfolio: "/Account/SetPortfolioSelected",
         userInfo: "/Account/UserInfo",
     },
+    configuration: {
+        getAll: "/Configuration"
+    },
     portfolio: {
         getPortfoliosToSelect: "/Portfolio/GetPortfoliosToSelect"
     }
