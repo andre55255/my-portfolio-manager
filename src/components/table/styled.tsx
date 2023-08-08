@@ -48,7 +48,7 @@ export const TableStyled = styled.table<StyledComponentProps>`
 export const TableHeaderStyled = styled.th<StyledComponentProps>`
     padding: 20px 20px 20px 10px;
     text-align: left;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     color: ${(props) => props.theme.colorLabelForm};
     position: relative;
     cursor: pointer;
@@ -66,7 +66,7 @@ export const TableBodyStyled = styled.tbody<StyledComponentProps>`
     tr {
         border-bottom: 1px solid ${(props) => props.theme.textMenuColor};
         color: ${(props) => props.theme.colorLabelForm};
-        font-size: 0.85rem;
+        font-size: 0.7rem;
         transition: background-color 0.3s;
 
         &:hover {
@@ -87,7 +87,7 @@ export const ActionButtonsStyled = styled.div<StyledComponentProps>`
     gap: .3rem;
 
     width: 100%;
-    font-size: 1rem;
+    font-size: .9rem;
 
     .edit {
         cursor: pointer;
@@ -107,7 +107,7 @@ export const PaginationStyled = styled.div<StyledComponentProps>`
     flex-wrap: wrap;
 
     margin-top: 1.2rem;
-    font-size: .85rem;
+    font-size: .7rem;
     color: ${(props) => props.theme.colorLabelForm};
 `;
 
@@ -115,4 +115,5 @@ export const ButtonPaginationStyled = styled.button<StyledComponentProps>`
     padding: .3rem .6rem;
     border: none;
     outline: none;
+    font-size: .7rem;
 `

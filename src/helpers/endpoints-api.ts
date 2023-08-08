@@ -7,7 +7,7 @@ export const endpointsApi = {
         userInfo: "/Account/UserInfo",
     },
     configuration: {
-        getAll: "/Configuration"
+        rest: "/Configuration"
     },
     portfolio: {
         getPortfoliosToSelect: "/Portfolio/GetPortfoliosToSelect"

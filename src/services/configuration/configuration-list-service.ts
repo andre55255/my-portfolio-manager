@@ -7,7 +7,7 @@ import { requestClient } from "../api/request-client";
 export const handleConfigurationList = async (accessToken: string): Promise<APIResponse<ListPaginatedType<ConfigurationType>>> => {
     try {
         const resultReq = await requestClient<ListPaginatedType<ConfigurationType>>({
-            url: endpointsApi.configuration.getAll,
+            url: endpointsApi.configuration.rest,
             method: "GET",
             authorization: accessToken,
         });

@@ -1,4 +1,4 @@
-import { SelectColumnType, SelectObjectType } from "../../types/select-object";
+import { SelectColumnType } from "../../types/select-object";
 import Loading from "../loading";
 import TableComponent from "../table";
 import TitlePage from "../title-page";
