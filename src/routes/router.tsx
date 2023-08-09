@@ -20,6 +20,10 @@ import ConfigurationTokenPage from "../pages/private/configuration-token/list";
 import ConfigurationTokenCreatePage from "../pages/private/configuration-token/create";
 import ConfigurationTokenEditPage from "../pages/private/configuration-token/edit";
 
+import GenericTypeTokenCreatePage from "../pages/private/generic-type/create";
+import GenericTypeEditPage from "../pages/private/generic-type/edit";
+import GenericTypeListPage from "../pages/private/generic-type/list";
+
 const Router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -36,14 +40,38 @@ const Router = createBrowserRouter(
 
                 {/* Protected routes */}
                 <Route element={<ProtectedRoute />}>
-                    <Route path={routesPages.configuration.create} element={<ConfigurationTokenCreatePage />} />
-                    <Route path={routesPages.configuration.edit} element={<ConfigurationTokenEditPage />} />
+                    {/* Configurations */}
+                    <Route
+                        path={routesPages.configuration.create}
+                        element={<ConfigurationTokenCreatePage />}
+                    />
+                    <Route
+                        path={routesPages.configuration.edit}
+                        element={<ConfigurationTokenEditPage />}
+                    />
                     <Route
                         path={routesPages.configuration.list}
                         element={<ConfigurationTokenPage />}
                     />
 
+                    {/* Generic Types */}
+                    <Route
+                        path={routesPages.genericTypes.create}
+                        element={<GenericTypeTokenCreatePage />}
+                    />
+                    <Route
+                        path={routesPages.genericTypes.edit}
+                        element={<GenericTypeEditPage />}
+                    />
+                    <Route
+                        path={routesPages.genericTypes.list}
+                        element={<GenericTypeListPage />}
+                    />
+
+                    {/* Home */}
                     <Route path={routesPages.home} element={<HomePage />} />
+
+                    {/* Reset Password Sign In */}
                     <Route
                         path={routesPages.resetPasswordSignIn}
                         element={<ResetPasswordSignInPage />}
@@ -51,7 +79,7 @@ const Router = createBrowserRouter(
                 </Route>
             </Route>
 
-            {/* Rota não encontrada */}
+            {/* Route Not Found */}
             <Route path="*" element={<NotFoundPage />} />
         </>
     )

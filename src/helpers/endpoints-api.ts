@@ -9,6 +9,9 @@ export const endpointsApi = {
     configuration: {
         rest: "/Configuration"
     },
+    genericType: {
+        rest: "/GenericType"
+    },
     portfolio: {
         getPortfoliosToSelect: "/Portfolio/GetPortfoliosToSelect"
     }

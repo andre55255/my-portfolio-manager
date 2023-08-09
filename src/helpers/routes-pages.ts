@@ -12,7 +12,11 @@ export const routesPages = {
     contactMe: "/contacts",
     experienceEducation: "/experience-education",
     experienceWork: "/experience-work",
-    genericTypes: "/generic-types",
+    genericTypes: {
+        list: "/generic-types",
+        create: "/generic-types/create",
+        edit: "/generic-types/edit/:id"
+    },
     portfolio: "/portfolios",
     projects: "/projects",
     stacks: "/stacks",

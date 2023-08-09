@@ -3,8 +3,6 @@ import { FormikHelpers, useFormik } from "formik";
 import { FormResetPasswordSignInSchema } from "../../../yup-config/reset-password-sign-in-schema";
 import FormDefault from "../../forms/form-default";
 import InputPassword from "../../forms/input-password";
-import ButtonNormal from "../../forms/button-normal";
-import Loading from "../../loading";
 
 type ScreenFormResetPassProps = {
     isFetching: boolean;
@@ -30,7 +28,7 @@ export default function ScreenFormResetPasswordSignIn({
     });
 
     return (
-        <FormDefault handleSubmit={formik.handleSubmit}>
+        <FormDefault handleSubmit={formik.handleSubmit} isFetching={isFetching}>
             <InputPassword
                 label="Senha antiga"
                 name="oldPassword"
@@ -59,9 +57,6 @@ export default function ScreenFormResetPasswordSignIn({
                 }
                 errorMessage={formik.errors.newPassword}
             />
-            <ButtonNormal disabled={isFetching ? true : false}>
-                {isFetching ? <Loading isFetching={isFetching} /> : "Enviar"}
-            </ButtonNormal>
         </FormDefault>
     );
 }

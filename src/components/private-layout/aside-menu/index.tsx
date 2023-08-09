@@ -3,8 +3,6 @@ import SidebarWrapper from "./sidebar-wrapper";
 import LogoDetails from "./logo-details";
 import SidebarNavList from "./sidebar-nav-list";
 import SidebarListItem from "./sidebar-list-item";
-import { routesPages } from "../../../helpers/routes-pages";
-import { FiHome } from "react-icons/fi";
 import { UserInfoContext } from "../../../providers/user-info-provider";
 import { menusFiltered } from "../../../helpers/menus";
 

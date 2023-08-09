@@ -10,10 +10,11 @@ import {
     TableHeaderStyled,
     TableStyled,
 } from "./styled";
-import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import InputSelectDefault from "../forms/input-select-default";
 import { SelectColumnType, SelectObjectType } from "../../types/select-object";
 import { useNavigate } from "react-router-dom";
+import ActionButtonsComponent from "./action-buttons";
 
 interface RowData {
     columns: SelectColumnType[];
@@ -161,18 +162,11 @@ export default function TableComponent({
                     ))}
                 </>
                 <td>
-                    <ActionButtonsStyled>
-                        <FaEdit
-                            className="edit"
-                            onClick={() =>
-                                navigate(editRoute.replace(":id", row["id"]))
-                            }
-                        />
-                        <FaTrash
-                            className="delete"
-                            onClick={() => handleDelete(row["id"])}
-                        />
-                    </ActionButtonsStyled>
+                    <ActionButtonsComponent
+                        editRoute={editRoute}
+                        handleDelete={handleDelete}
+                        idItem={row["id"]}
+                    />
                 </td>
             </tr>
         ));

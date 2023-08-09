@@ -1,10 +1,8 @@
 import { useFormik, FormikHelpers } from "formik";
 import { FormForgotPasswordType } from "../../../types/service-forgot-password-data";
-import ButtonNormal from "../../forms/button-normal";
 import FormDefault from "../../forms/form-default";
 import InputNormal from "../../forms/input-normal";
 import { FormForgotPasswordSchema } from "../../../yup-config/forgot-password-schema";
-import Loading from "../../loading";
 
 type ScreenFormForgotProps = {
     isFetching: boolean;
@@ -29,7 +27,7 @@ export default function ScreenFormForgotPassword({
     });
 
     return (
-        <FormDefault handleSubmit={formik.handleSubmit}>
+        <FormDefault handleSubmit={formik.handleSubmit} isFetching={isFetching}>
             <InputNormal
                 label="Nome de usuário"
                 name="userName"
@@ -44,9 +42,6 @@ export default function ScreenFormForgotPassword({
                 }
                 errorMessage={formik.errors.userName}
             />
-            <ButtonNormal disabled={isFetching ? true : false}>
-                {isFetching ? <Loading isFetching={isFetching} /> : "Enviar"}
-            </ButtonNormal>
         </FormDefault>
     );
 }

@@ -3,9 +3,7 @@ import PrivateLayoutPage from "../../components/private-layout";
 import { UserInfoContext } from "../../providers/user-info-provider";
 import { handleUserInfo } from "../../services/account/user-info-service";
 import { AuthContext } from "../../providers/auth-provider";
-import { showToastError } from "../../helpers/toast-utils";
 import { useNavigate } from "react-router-dom";
-import { routesPages } from "../../helpers/routes-pages";
 import {
     validAccessToken,
     verifyResponseRequest,

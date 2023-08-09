@@ -64,7 +64,7 @@ export const SidebarIconStyled = styled.div`
     font-size: 1rem;
     border-radius: 12px;
     margin-right: 0.5rem;
-    transition: all .1s!important;
+    transition: all .01s!important;
 
     &:hover {
         font-size: 1.1rem;

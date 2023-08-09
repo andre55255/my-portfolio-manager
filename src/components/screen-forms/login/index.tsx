@@ -1,11 +1,9 @@
 import { useFormik, FormikHelpers } from "formik";
 import { FormLoginType } from "../../../types/service-login-data";
-import ButtonNormal from "../../forms/button-normal";
 import FormDefault from "../../forms/form-default";
 import InputNormal from "../../forms/input-normal";
 import InputPassword from "../../forms/input-password";
 import { FormLoginSchema } from "../../../yup-config/form-login-schema";
-import Loading from "../../loading";
 
 type ScreenFormLoginProps = {
     isFetching: boolean;
@@ -31,7 +29,7 @@ export default function ScreenFormLogin({
     });
 
     return (
-        <FormDefault handleSubmit={formik.handleSubmit}>
+        <FormDefault handleSubmit={formik.handleSubmit} isFetching={isFetching}>
             <InputNormal
                 label="Nome de usuário"
                 name="userName"
@@ -60,10 +58,6 @@ export default function ScreenFormLogin({
                 }
                 errorMessage={formik.errors.password}
             />
-
-            <ButtonNormal disabled={isFetching ? true : false}>
-                {isFetching ? <Loading isFetching={isFetching} /> : "Enviar"}
-            </ButtonNormal>
         </FormDefault>
     );
 }

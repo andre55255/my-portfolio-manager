@@ -2,41 +2,44 @@ import { useFormik, FormikHelpers } from "formik";
 import { useEffect } from "react";
 import FormDefault from "../../forms/form-default";
 import InputNormal from "../../forms/input-normal";
-import { ConfigurationSaveType } from "../../../types/service-configuration-data";
-import { FormConfigurationSchema } from "../../../yup-config/configuration-schema";
+import { SaveGenericType } from "../../../types/service-generic-type-data";
+import { FormGenericTypeSchema } from "../../../yup-config/generic-type-schema";
+import InputSwitch from "../../forms/input-switch";
 
-type ScreenFormConfigurationProps = {
+type ScreenFormGenericProps = {
     isFetching: boolean;
     handleSubmit: (
-        values: ConfigurationSaveType,
-        formikHelpers: FormikHelpers<ConfigurationSaveType>
+        values: SaveGenericType,
+        formikHelpers: FormikHelpers<SaveGenericType>
     ) => void | Promise<any>;
-    values?: ConfigurationSaveType;
+    values?: SaveGenericType;
 };
 
-export default function ScreenFormConfiguration({
+export default function ScreenFormGeneric({
     isFetching,
     handleSubmit,
     values,
-}: ScreenFormConfigurationProps) {
-    const initialValues: ConfigurationSaveType = {
+}: ScreenFormGenericProps) {
+    const initialValues: SaveGenericType = {
         token: "",
-        extra: "",
+        description: "",
         value: "",
+        valueBool: undefined,
     };
 
     const formik = useFormik({
         initialValues,
         onSubmit: handleSubmit,
-        validationSchema: FormConfigurationSchema,
+        validationSchema: FormGenericTypeSchema,
     });
 
     useEffect(() => {
         if (!values) return;
 
         formik.setFieldValue("token", values.token || "");
+        formik.setFieldValue("description", values.description || "");
         formik.setFieldValue("value", values.value || "");
-        formik.setFieldValue("extra", values.extra || "");
+        formik.setFieldValue("valueBool", values.valueBool || undefined);
     }, [values]);
 
     return (
@@ -66,16 +69,33 @@ export default function ScreenFormConfiguration({
                 errorMessage={formik.errors.value}
             />
             <InputNormal
-                label="Extra"
-                name="extra"
+                label="Descrição"
+                name="description"
                 type="text"
-                placeholder="Digite o valor de extra"
-                value={formik.values.extra}
+                placeholder="Digite o valor da descrição"
+                value={formik.values.description}
                 onChange={formik.handleChange}
                 isInvalid={
-                    formik.touched.extra && formik.errors.extra ? true : false
+                    formik.touched.description && formik.errors.description
+                        ? true
+                        : false
                 }
-                errorMessage={formik.errors.extra}
+                errorMessage={formik.errors.description}
+            />
+            <InputSwitch
+                label="Valor Booleano"
+                name="valueBool"
+                type="text"
+                value={formik.values.valueBool}
+                onChange={() => {
+                    formik.setFieldValue("valueBool", !formik.values.valueBool);
+                }}
+                isInvalid={
+                    formik.touched.valueBool && formik.errors.valueBool
+                        ? true
+                        : false
+                }
+                errorMessage={formik.errors.valueBool}
             />
         </FormDefault>
     );

@@ -51,7 +51,7 @@ const allMenusAside: MenuProps[] = [
         roles: [ROLES.admin, ROLES.user],
     },
     {
-        href: routesPages.genericTypes,
+        href: routesPages.genericTypes.list,
         label: "Genéricos",
         Icon: FiType,
         roles: [ROLES.admin],

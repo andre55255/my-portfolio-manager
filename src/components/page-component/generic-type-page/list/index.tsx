@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { ConfigurationType } from "../../../../types/service-configuration-data";
 import ListScreenComponent from "../../../list-screen";
 import { routesPages } from "../../../../helpers/routes-pages";
 import { SelectColumnType } from "../../../../types/select-object";
@@ -9,31 +8,30 @@ import {
     validAccessToken,
     verifyResponseRequest,
 } from "../../../../helpers/function-utils";
-import { handleConfigurationList } from "../../../../services/configuration/configuration-list-service";
-import { handleConfigurationDelete } from "../../../../services/configuration/configuration-delete-service";
+import { GenericType } from "../../../../types/service-generic-type-data";
+import { handleGenericList } from "../../../../services/generic-type/generic-list-service";
+import { handleGenericDelete } from "../../../../services/generic-type/generic-delete-service";
 
-export default function ConfigurationTokenListPage() {
+export default function GenericTypesListPage() {
     const navigate = useNavigate();
     const { accessToken, logout } = useContext(AuthContext);
 
     const [isFetching, setIsFetching] = useState<boolean>(false);
-    const [configurations, setConfigurations] = useState<ConfigurationType[]>(
-        []
-    );
+    const [data, setData] = useState<GenericType[]>([]);
 
-    const handleListConfigurations = useCallback(async () => {
+    const handleList = useCallback(async () => {
         setIsFetching(true);
 
         const isValidToken = validAccessToken(logout!!, navigate, accessToken);
         if (!isValidToken) return;
 
-        const resultReq = await handleConfigurationList(accessToken!!);
+        const resultReq = await handleGenericList(accessToken!!);
         const isSuccess = verifyResponseRequest(resultReq, logout!!, navigate);
         if (!isSuccess) {
             setIsFetching(false);
             return;
         }
-        setConfigurations(resultReq.object?.items || []);
+        setData(resultReq.object?.items || []);
         setIsFetching(false);
     }, []);
 
@@ -43,13 +41,13 @@ export default function ConfigurationTokenListPage() {
         const isValidToken = validAccessToken(logout!!, navigate, accessToken);
         if (!isValidToken) return;
 
-        const resultReq = await handleConfigurationDelete(accessToken!!, id);
+        const resultReq = await handleGenericDelete(accessToken!!, id);
         const isSuccess = verifyResponseRequest(resultReq, logout!!, navigate);
         if (!isSuccess) {
             setIsFetching(false);
             return;
         }
-        await handleListConfigurations();
+        await handleList();
     };
 
     const columns: SelectColumnType[] = [
@@ -69,25 +67,25 @@ export default function ConfigurationTokenListPage() {
             isVisible: true,
         },
         {
-            label: "Extra",
-            value: "extra",
+            label: "Descrição",
+            value: "description",
             isVisible: true,
         },
     ];
 
     useEffect(() => {
-        handleListConfigurations();
+        handleList();
     }, []);
 
     return (
         <ListScreenComponent
-            title="Configurações"
-            createRoute={routesPages.configuration.create}
-            editRoute={routesPages.configuration.edit}
+            title="Tipos"
+            createRoute={routesPages.genericTypes.create}
+            editRoute={routesPages.genericTypes.edit}
             handleDelete={handleDelete}
             isFetching={isFetching}
             columns={columns}
-            data={configurations}
+            data={data}
         />
     );
 }
