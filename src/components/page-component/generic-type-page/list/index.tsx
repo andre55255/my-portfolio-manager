@@ -5,7 +5,6 @@ import { routesPages } from "../../../../helpers/routes-pages";
 import { SelectColumnType } from "../../../../types/select-object";
 import { AuthContext } from "../../../../providers/auth-provider";
 import {
-    validAccessToken,
     verifyResponseRequest,
 } from "../../../../helpers/function-utils";
 import { GenericType } from "../../../../types/service-generic-type-data";
@@ -14,7 +13,7 @@ import { handleGenericDelete } from "../../../../services/generic-type/generic-d
 
 export default function GenericTypesListPage() {
     const navigate = useNavigate();
-    const { accessToken, logout } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
 
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [data, setData] = useState<GenericType[]>([]);
@@ -22,10 +21,7 @@ export default function GenericTypesListPage() {
     const handleList = useCallback(async () => {
         setIsFetching(true);
 
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
-        const resultReq = await handleGenericList(accessToken!!);
+        const resultReq = await handleGenericList();
         const isSuccess = verifyResponseRequest(resultReq, logout!!, navigate);
         if (!isSuccess) {
             setIsFetching(false);
@@ -38,10 +34,7 @@ export default function GenericTypesListPage() {
     const handleDelete = async (id: string) => {
         setIsFetching(true);
 
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
-        const resultReq = await handleGenericDelete(accessToken!!, id);
+        const resultReq = await handleGenericDelete(id);
         const isSuccess = verifyResponseRequest(resultReq, logout!!, navigate);
         if (!isSuccess) {
             setIsFetching(false);

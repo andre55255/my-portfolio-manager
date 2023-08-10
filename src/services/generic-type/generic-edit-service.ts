@@ -1,10 +1,10 @@
 import { APIResponse } from "../../../../my-portfolio/src/types/api-response";
 import { endpointsApi } from "../../helpers/endpoints-api";
+import { getAccessToken } from "../../helpers/function-utils";
 import { SaveGenericType } from "../../types/service-generic-type-data";
 import { requestClient } from "../api/request-client";
 
 export const handleGenericEdit = async (
-    accessToken: string,
     data: SaveGenericType,
     id: string
 ): Promise<APIResponse<unknown>> => {
@@ -12,7 +12,7 @@ export const handleGenericEdit = async (
         const resultReq = await requestClient<unknown>({
             url: endpointsApi.genericType.rest + "/" + id,
             method: "PUT",
-            authorization: accessToken,
+            authorization: getAccessToken(),
             data,
         });
         return resultReq;

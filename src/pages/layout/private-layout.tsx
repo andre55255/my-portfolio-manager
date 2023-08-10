@@ -4,10 +4,7 @@ import { UserInfoContext } from "../../providers/user-info-provider";
 import { handleUserInfo } from "../../services/account/user-info-service";
 import { AuthContext } from "../../providers/auth-provider";
 import { useNavigate } from "react-router-dom";
-import {
-    validAccessToken,
-    verifyResponseRequest,
-} from "../../helpers/function-utils";
+import { verifyResponseRequest } from "../../helpers/function-utils";
 
 type AuxProps = {
     children: React.ReactNode;
@@ -15,13 +12,12 @@ type AuxProps = {
 
 export default function PrivateLayout({ children }: AuxProps) {
     const navigate = useNavigate();
-    const { accessToken, logout } = useContext(AuthContext);
+
+    const { logout } = useContext(AuthContext);
     const { setUserInfo } = useContext(UserInfoContext);
 
     const getUserInfo = async () => {
-        validAccessToken(logout!!, navigate, accessToken);
-        
-        const result = await handleUserInfo({ accessToken: accessToken!! });
+        const result = await handleUserInfo();
         verifyResponseRequest(result, logout!!, navigate);
         setUserInfo!!(result.object);
     };

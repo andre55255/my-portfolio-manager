@@ -2,15 +2,9 @@ import CreateScreenComponent from "../../../create-screen";
 import { useState, useContext, useEffect, useCallback } from "react";
 import ScreenFormConfiguration from "../../../screen-forms/configuration-tokens";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-    ConfigurationSaveType,
-    ConfigurationType,
-} from "../../../../types/service-configuration-data";
+import { ConfigurationSaveType } from "../../../../types/service-configuration-data";
 import { AuthContext } from "../../../../providers/auth-provider";
-import {
-    validAccessToken,
-    verifyResponseRequest,
-} from "../../../../helpers/function-utils";
+import { verifyResponseRequest } from "../../../../helpers/function-utils";
 import { showToastSuccess } from "../../../../helpers/toast-utils";
 import { routesPages } from "../../../../helpers/routes-pages";
 import { handleConfigurationEdit } from "../../../../services/configuration/configuration-edit-service";
@@ -23,19 +17,12 @@ export default function ConfigurationTokenEditPageComponent() {
 
     const navigate = useNavigate();
     const { id } = useParams();
-    const { accessToken, logout } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
 
     const handleSubmit = async (values: ConfigurationSaveType) => {
         setIsFetchingSubmit(true);
 
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
-        const resultReq = await handleConfigurationEdit(
-            accessToken!!,
-            values,
-            id || "0"
-        );
+        const resultReq = await handleConfigurationEdit(values, id || "0");
         const isVerifiedReq = verifyResponseRequest(
             resultReq,
             logout!!,
@@ -52,13 +39,7 @@ export default function ConfigurationTokenEditPageComponent() {
     const handlePrepare = useCallback(async () => {
         setIsFetchingPage(true);
 
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
-        const resultReq = await handleConfigurationPrepare(
-            accessToken!!,
-            id || "0"
-        );
+        const resultReq = await handleConfigurationPrepare(id || "0");
         const isVerifiedReq = verifyResponseRequest(
             resultReq,
             logout!!,

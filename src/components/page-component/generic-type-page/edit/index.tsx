@@ -2,10 +2,7 @@ import CreateScreenComponent from "../../../create-screen";
 import { useState, useContext, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../../providers/auth-provider";
-import {
-    validAccessToken,
-    verifyResponseRequest,
-} from "../../../../helpers/function-utils";
+import { verifyResponseRequest } from "../../../../helpers/function-utils";
 import { showToastSuccess } from "../../../../helpers/toast-utils";
 import { routesPages } from "../../../../helpers/routes-pages";
 import { SaveGenericType } from "../../../../types/service-generic-type-data";
@@ -20,19 +17,12 @@ export default function GenericTypeEditPageComponent() {
 
     const navigate = useNavigate();
     const { id } = useParams();
-    const { accessToken, logout } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
 
     const handleSubmit = async (values: SaveGenericType) => {
         setIsFetchingSubmit(true);
 
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
-        const resultReq = await handleGenericEdit(
-            accessToken!!,
-            values,
-            id || "0"
-        );
+        const resultReq = await handleGenericEdit(values, id || "0");
         const isVerifiedReq = verifyResponseRequest(
             resultReq,
             logout!!,
@@ -49,10 +39,7 @@ export default function GenericTypeEditPageComponent() {
     const handlePrepare = useCallback(async () => {
         setIsFetchingPage(true);
 
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
-        const resultReq = await handleGenericPrepare(accessToken!!, id || "0");
+        const resultReq = await handleGenericPrepare(id || "0");
         const isVerifiedReq = verifyResponseRequest(
             resultReq,
             logout!!,

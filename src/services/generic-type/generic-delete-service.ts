@@ -1,16 +1,16 @@
 import { APIResponse } from "../../../../my-portfolio/src/types/api-response";
 import { endpointsApi } from "../../helpers/endpoints-api";
+import { getAccessToken } from "../../helpers/function-utils";
 import { requestClient } from "../api/request-client";
 
 export const handleGenericDelete = async (
-    accessToken: string,
     id: string
 ): Promise<APIResponse<unknown>> => {
     try {
         const resultReq = await requestClient<unknown>({
             url: endpointsApi.genericType.rest + "/" + id,
             method: "DELETE",
-            authorization: accessToken,
+            authorization: getAccessToken(),
         });
         return resultReq;
     } catch (err) {

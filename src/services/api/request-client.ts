@@ -6,7 +6,7 @@ type RequestProps = {
     method: "POST" | "GET" | "PUT" | "DELETE" | "PATCH";
     url: string;
     data?: object | undefined;
-    authorization?: string | undefined;
+    authorization?: string | undefined | null;
     query?: object;
 };
 

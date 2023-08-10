@@ -1,17 +1,17 @@
 import { APIResponse } from "../../../../my-portfolio/src/types/api-response";
 import { endpointsApi } from "../../helpers/endpoints-api";
+import { getAccessToken } from "../../helpers/function-utils";
 import { SaveGenericType } from "../../types/service-generic-type-data";
 import { requestClient } from "../api/request-client";
 
 export const handleGenericPrepare = async (
-    accessToken: string,
     id: string
 ): Promise<APIResponse<SaveGenericType>> => {
     try {
         const resultReq = await requestClient<SaveGenericType>({
             url: endpointsApi.genericType.rest + "/" + id,
             method: "GET",
-            authorization: accessToken,
+            authorization: getAccessToken(),
         });
         return resultReq;
     } catch (err) {

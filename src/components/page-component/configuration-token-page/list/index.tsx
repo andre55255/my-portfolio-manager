@@ -5,16 +5,13 @@ import ListScreenComponent from "../../../list-screen";
 import { routesPages } from "../../../../helpers/routes-pages";
 import { SelectColumnType } from "../../../../types/select-object";
 import { AuthContext } from "../../../../providers/auth-provider";
-import {
-    validAccessToken,
-    verifyResponseRequest,
-} from "../../../../helpers/function-utils";
+import { verifyResponseRequest } from "../../../../helpers/function-utils";
 import { handleConfigurationList } from "../../../../services/configuration/configuration-list-service";
 import { handleConfigurationDelete } from "../../../../services/configuration/configuration-delete-service";
 
 export default function ConfigurationTokenListPage() {
     const navigate = useNavigate();
-    const { accessToken, logout } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
 
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [configurations, setConfigurations] = useState<ConfigurationType[]>(
@@ -24,10 +21,7 @@ export default function ConfigurationTokenListPage() {
     const handleListConfigurations = useCallback(async () => {
         setIsFetching(true);
 
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
-        const resultReq = await handleConfigurationList(accessToken!!);
+        const resultReq = await handleConfigurationList();
         const isSuccess = verifyResponseRequest(resultReq, logout!!, navigate);
         if (!isSuccess) {
             setIsFetching(false);
@@ -40,10 +34,7 @@ export default function ConfigurationTokenListPage() {
     const handleDelete = async (id: string) => {
         setIsFetching(true);
 
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
-        const resultReq = await handleConfigurationDelete(accessToken!!, id);
+        const resultReq = await handleConfigurationDelete(id);
         const isSuccess = verifyResponseRequest(resultReq, logout!!, navigate);
         if (!isSuccess) {
             setIsFetching(false);

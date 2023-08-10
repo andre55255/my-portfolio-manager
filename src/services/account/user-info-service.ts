@@ -1,20 +1,15 @@
 import { endpointsApi } from "../../helpers/endpoints-api";
+import { getAccessToken } from "../../helpers/function-utils";
 import { APIResponse } from "../../types/api-response";
 import { UserInfoType } from "../../types/user-info";
 import { requestClient } from "../api/request-client";
 
-type HandleUserInfoProps = {
-    accessToken: string;
-};
-
-export const handleUserInfo = async ({
-    accessToken,
-}: HandleUserInfoProps): Promise<APIResponse<UserInfoType>> => {
+export const handleUserInfo = async (): Promise<APIResponse<UserInfoType>> => {
     try {
         const resultReq = await requestClient<UserInfoType>({
             url: endpointsApi.account.userInfo,
             method: "GET",
-            authorization: accessToken,
+            authorization: getAccessToken(),
         });
         return resultReq;
     } catch (err) {

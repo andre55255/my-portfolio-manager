@@ -16,7 +16,7 @@ import { showToastSuccess } from "../../../../helpers/toast-utils";
 
 export default function SelectPortfolio() {
     const navigate = useNavigate();
-    const { logout, accessToken } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
     const { userInfo } = useContext(UserInfoContext);
 
     const [portfolios, setPortfolios] = useState<SelectObjectType[]>([]);
@@ -29,10 +29,7 @@ export default function SelectPortfolio() {
 
     const getPortfoliosToSelect = async () => {
         setIsFetching(true);
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
-        const result = await getPortfoliosToSelectObject(accessToken!!);
+        const result = await getPortfoliosToSelectObject();
         const isValidRes = verifyResponseRequest(result, logout!!, navigate);
         if (isValidRes) {
             setPortfolios(result.object!!);
@@ -58,11 +55,7 @@ export default function SelectPortfolio() {
             return;
         }
 
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
         const result = await handleSetSelectedPortfolio(
-            accessToken!!,
             Number(value)
         );
         const isValidVerify = verifyResponseRequest(result, logout!!, navigate);

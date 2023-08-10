@@ -11,3 +11,8 @@ export type LoginResponseType = {
     expirationAt: Date;
     user: UserDataType;
 }
+
+export type RefreshTokenType = {
+    accessToken: string;
+    refreshToken: string;
+}

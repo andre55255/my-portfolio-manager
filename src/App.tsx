@@ -15,8 +15,8 @@ const App = () => {
     const { getTheme } = useTheme();
 
     return (
-        <CookiesProvider>
-            <AuthProvider>
+        <AuthProvider>
+            <CookiesProvider>
                 <UserInfoProvider>
                     <ThemeProvider theme={() => getTheme()}>
                         <GlobalStyles />
@@ -27,13 +27,13 @@ const App = () => {
                             closeOnClick
                             hideProgressBar={false}
                             newestOnTop={false}
-                            theme="light"
+                            theme="dark"
                         />
                         <RouterProvider router={Router} />
                     </ThemeProvider>
                 </UserInfoProvider>
-            </AuthProvider>
-        </CookiesProvider>
+            </CookiesProvider>
+        </AuthProvider>
     );
 };
 

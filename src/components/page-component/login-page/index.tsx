@@ -33,7 +33,6 @@ export default function LoginPageComponent() {
             return;
         }
         login(result.object?.accessToken, result.object?.refreshToken);
-        showToastSuccess({ message: result.message });
         navigate(routesPages.home);
     };
 

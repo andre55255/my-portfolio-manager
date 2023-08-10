@@ -1,16 +1,15 @@
 import { endpointsApi } from "../../helpers/endpoints-api";
+import { getAccessToken } from "../../helpers/function-utils";
 import { APIResponse } from "../../types/api-response";
 import { SelectObjectType } from "../../types/select-object";
 import { requestClient } from "../api/request-client";
 
-export const getPortfoliosToSelectObject = async (
-    accessToken: string
-): Promise<APIResponse<SelectObjectType[]>> => {
+export const getPortfoliosToSelectObject = async (): Promise<APIResponse<SelectObjectType[]>> => {
     try {
         const resultReq = await requestClient<SelectObjectType[]>({
             url: endpointsApi.portfolio.getPortfoliosToSelect,
             method: "GET",
-            authorization: accessToken,
+            authorization: getAccessToken(),
         });
         return resultReq;
     } catch (err) {

@@ -1,6 +1,5 @@
-export const COOKIE_ACCESS_TOKEN = "ac-s52-er5f";
-export const COOKIE_REFRESH_TOKEN = "bc-s52-er5f";
-export const COOKIE_USER_DATA = "cc-s52-er5f";
+export const ACCESS_TOKEN = "ac-s52-er5f";
+export const REFRESH_TOKEN = "bc-s52-er5f";
 
 export const THEME_APPLICATION = "th-se52-5rf5";
 

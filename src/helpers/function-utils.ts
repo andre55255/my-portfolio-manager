@@ -2,6 +2,7 @@ import { APIResponse } from "./../../../my-portfolio/src/types/api-response";
 import { NavigateFunction } from "react-router-dom";
 import { routesPages } from "./routes-pages";
 import { showToastError } from "./toast-utils";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
 
 export const convertToBase64 = (
     file: File
@@ -48,3 +49,7 @@ export const verifyResponseRequest = (
     }
     return true;
 };
+
+export const getAccessToken = () => localStorage.getItem(ACCESS_TOKEN);
+
+export const getRefreshToken = () => localStorage.getItem(REFRESH_TOKEN);

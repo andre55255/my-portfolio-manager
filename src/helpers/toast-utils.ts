@@ -1,4 +1,5 @@
 import { toast, ToastOptions } from "react-toastify";
+import { THEME_APPLICATION } from "./constants";
 
 type ShowToastProps = {
     message: string | undefined;
@@ -10,7 +11,12 @@ export const toastOpt: ToastOptions = {
     hideProgressBar: false,
     closeOnClick: true,
     draggable: true,
-    theme: "light",
+    theme:
+        localStorage.getItem(THEME_APPLICATION) === "dark"
+            ? "light"
+            : localStorage.getItem(THEME_APPLICATION) === "light"
+            ? "dark"
+            : "colored",
     pauseOnHover: true,
 };
 
@@ -24,4 +30,4 @@ export const showToastSuccess = ({ message }: ShowToastProps) => {
 
 export const showToastInfo = ({ message }: ShowToastProps) => {
     toast.info(message, toastOpt);
-}
+};

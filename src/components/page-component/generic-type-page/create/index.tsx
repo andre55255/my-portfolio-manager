@@ -2,10 +2,7 @@ import CreateScreenComponent from "../../../create-screen";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../providers/auth-provider";
-import {
-    validAccessToken,
-    verifyResponseRequest,
-} from "../../../../helpers/function-utils";
+import { verifyResponseRequest } from "../../../../helpers/function-utils";
 import { showToastSuccess } from "../../../../helpers/toast-utils";
 import { routesPages } from "../../../../helpers/routes-pages";
 import { SaveGenericType } from "../../../../types/service-generic-type-data";
@@ -16,15 +13,12 @@ export default function GenericTypeCreatePageComponent() {
     const [isFetchingSubmit, setIsFetchingSubmit] = useState<boolean>(false);
 
     const navigate = useNavigate();
-    const { accessToken, logout } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
 
     const handleSubmit = async (values: SaveGenericType) => {
         setIsFetchingSubmit(true);
 
-        const isValidToken = validAccessToken(logout!!, navigate, accessToken);
-        if (!isValidToken) return;
-
-        const resultReq = await handleGenericCreate(accessToken!!, values);
+        const resultReq = await handleGenericCreate(values);
         const isVerifiedReq = verifyResponseRequest(
             resultReq,
             logout!!,
