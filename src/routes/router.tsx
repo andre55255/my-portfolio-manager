@@ -20,6 +20,8 @@ import ConfigurationTokenPage from "../pages/private/configuration-token/list";
 import ConfigurationTokenCreatePage from "../pages/private/configuration-token/create";
 import ConfigurationTokenEditPage from "../pages/private/configuration-token/edit";
 
+import ContactMeListPage from "../pages/private/contacts-me/list";
+
 import GenericTypeTokenCreatePage from "../pages/private/generic-type/create";
 import GenericTypeEditPage from "../pages/private/generic-type/edit";
 import GenericTypeListPage from "../pages/private/generic-type/list";
@@ -52,6 +54,12 @@ const Router = createBrowserRouter(
                     <Route
                         path={routesPages.configuration.list}
                         element={<ConfigurationTokenPage />}
+                    />
+
+                    {/* Contacts Me */}
+                    <Route 
+                        path={routesPages.contactMe.list}
+                        element={<ContactMeListPage />}
                     />
 
                     {/* Generic Types */}

@@ -10,6 +10,9 @@ export const endpointsApi = {
     configuration: {
         rest: "/Configuration"
     },
+    contactsMe: {
+        rest: "/ContactMe"
+    },
     genericType: {
         rest: "/GenericType"
     },

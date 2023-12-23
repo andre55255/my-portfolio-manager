@@ -3,13 +3,17 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 type ActionButtonsProps = {
+    isDelete: boolean;
     handleDelete: (id: string) => void;
+    isEdit: boolean;
     editRoute: string;
     idItem: string;
 };
 
 export default function ActionButtonsComponent({
+    isDelete,
     handleDelete,
+    isEdit,
     editRoute,
     idItem,
 }: ActionButtonsProps) {
@@ -24,11 +28,15 @@ export default function ActionButtonsComponent({
 
     return (
         <ActionButtonsStyled>
-            <FaEdit
-                className="edit"
-                onClick={() => navigate(editRoute.replace(":id", idItem))}
-            />
-            <FaTrash className="delete" onClick={handleClickConfirm} />
+            {isEdit && (
+                <FaEdit
+                    className="edit"
+                    onClick={() => navigate(editRoute.replace(":id", idItem))}
+                />
+            )}
+            {isDelete && (
+                <FaTrash className="delete" onClick={handleClickConfirm} />
+            )}
         </ActionButtonsStyled>
     );
 }

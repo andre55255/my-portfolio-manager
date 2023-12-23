@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-    ActionButtonsStyled,
     ButtonPaginationStyled,
     ContainerStyled,
     PaginationStyled,
@@ -13,24 +12,25 @@ import {
 import { FaSearch } from "react-icons/fa";
 import InputSelectDefault from "../forms/input-select-default";
 import { SelectColumnType, SelectObjectType } from "../../types/select-object";
-import { useNavigate } from "react-router-dom";
 import ActionButtonsComponent from "./action-buttons";
 
 interface RowData {
     columns: SelectColumnType[];
     data: any[];
+    isEdit: boolean;
     editRoute: string;
+    isDelete: boolean;
     handleDelete: (id: string) => void;
 }
 
 export default function TableComponent({
     columns,
     data,
+    isEdit,
     editRoute,
+    isDelete,
     handleDelete,
 }: RowData) {
-    const navigate = useNavigate();
-
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [tableRows, setTableRows] = useState<any[]>([...data]);
     const [itemsPerPage, setItemsPerPage] = useState<number>(5);
@@ -138,7 +138,9 @@ export default function TableComponent({
                         {item.label}
                     </TableHeaderStyled>
                 ))}
-                <TableHeaderStyled>Ações</TableHeaderStyled>
+                {(isEdit || isDelete) && (
+                    <TableHeaderStyled>Ações</TableHeaderStyled>
+                )}
             </>
         );
     };
@@ -161,13 +163,17 @@ export default function TableComponent({
                         <td key={`${index}${row[key]}`}>{row[key]}</td>
                     ))}
                 </>
-                <td>
-                    <ActionButtonsComponent
-                        editRoute={editRoute}
-                        handleDelete={handleDelete}
-                        idItem={row["id"]}
-                    />
-                </td>
+                {(isDelete || isEdit) && (
+                    <td>
+                        <ActionButtonsComponent
+                            isEdit={isEdit}
+                            editRoute={editRoute}
+                            isDelete={isDelete}
+                            handleDelete={handleDelete}
+                            idItem={row["id"]}
+                        />
+                    </td>
+                )}
             </tr>
         ));
     };

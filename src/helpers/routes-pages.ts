@@ -9,7 +9,9 @@ export const routesPages = {
         create: "/configuration-tokens/create",
         edit: "/configuration-tokens/edit/:id"
     },
-    contactMe: "/contacts",
+    contactMe: {
+        list: "/contacts-me",
+    },
     experienceEducation: "/experience-education",
     experienceWork: "/experience-work",
     genericTypes: {

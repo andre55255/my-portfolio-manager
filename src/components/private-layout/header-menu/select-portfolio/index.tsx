@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../providers/auth-provider";
 import { UserInfoContext } from "../../../../providers/user-info-provider";
 import {
-    validAccessToken,
     verifyResponseRequest,
 } from "../../../../helpers/function-utils";
 import { getPortfoliosToSelectObject } from "../../../../services/portfolio/select-portfolio-service";

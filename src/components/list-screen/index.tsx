@@ -9,9 +9,12 @@ import { useNavigate } from "react-router-dom";
 interface ListScreenComponentProps {
     columns: SelectColumnType[];
     data: any[];
+    isEdit: boolean;
     editRoute: string;
+    isDelete: boolean;
     handleDelete: (id: string) => void;
     title: string;
+    isCreate: boolean;
     createRoute: string;
     isFetching: boolean;
 }
@@ -19,9 +22,12 @@ interface ListScreenComponentProps {
 export default function ListScreenComponent({
     columns,
     data,
+    isEdit,
     editRoute,
+    isDelete,
     handleDelete,
     title,
+    isCreate,
     createRoute,
     isFetching,
 }: ListScreenComponentProps) {
@@ -30,13 +36,18 @@ export default function ListScreenComponent({
     return (
         <ContainerListStyled>
             <TitlePage>{title}</TitlePage>
-            <ButtonAdd onClick={() => navigate(createRoute)}>
-                <FaPlus /> Criar
-            </ButtonAdd>
+            {isCreate && (
+                <ButtonAdd onClick={() => navigate(createRoute)}>
+                    <FaPlus /> Criar
+                </ButtonAdd>
+            )}
+
             <TableComponent
                 columns={columns}
                 data={data}
+                isEdit={isEdit}
                 editRoute={editRoute}
+                isDelete={isDelete}
                 handleDelete={handleDelete}
             />
             <Loading isFetching={isFetching} isArea={true} />

@@ -73,8 +73,11 @@ export default function ConfigurationTokenListPage() {
     return (
         <ListScreenComponent
             title="Configurações"
+            isCreate={true}
             createRoute={routesPages.configuration.create}
+            isEdit={true}
             editRoute={routesPages.configuration.edit}
+            isDelete={true}
             handleDelete={handleDelete}
             isFetching={isFetching}
             columns={columns}

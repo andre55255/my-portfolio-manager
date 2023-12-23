@@ -33,7 +33,7 @@ const allMenusAside: MenuProps[] = [
         roles: [ROLES.admin],
     },
     {
-        href: routesPages.contactMe,
+        href: routesPages.contactMe.list,
         label: "Contatos",
         Icon: FiUsers,
         roles: [ROLES.admin, ROLES.user],

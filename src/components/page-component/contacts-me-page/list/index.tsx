@@ -1,27 +1,26 @@
 import { useState, useEffect, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import ListScreenComponent from "../../../list-screen";
-import { routesPages } from "../../../../helpers/routes-pages";
 import { SelectColumnType } from "../../../../types/select-object";
 import { AuthContext } from "../../../../providers/auth-provider";
-import {
-    verifyResponseRequest,
-} from "../../../../helpers/function-utils";
-import { GenericType } from "../../../../types/service-generic-type-data";
-import { handleGenericList } from "../../../../services/generic-type/generic-list-service";
-import { handleGenericDelete } from "../../../../services/generic-type/generic-delete-service";
+import { verifyResponseRequest } from "../../../../helpers/function-utils";
+import { FormContactListDataApi } from "../../../../types/service-contacts-me-data";
+import { handleContactList } from "../../../../services/contacts-me/contact-list-service";
+import { handleContactDelete } from "../../../../services/contacts-me/contact-delete-service";
 
-export default function GenericTypesListPage() {
+export default function ContactListPageComponent() {
     const navigate = useNavigate();
     const { logout } = useContext(AuthContext);
 
     const [isFetching, setIsFetching] = useState<boolean>(false);
-    const [data, setData] = useState<GenericType[]>([]);
+    const [data, setData] = useState<FormContactListDataApi[]>(
+        []
+    );
 
-    const handleList = useCallback(async () => {
+    const handleListData = useCallback(async () => {
         setIsFetching(true);
 
-        const resultReq = await handleGenericList();
+        const resultReq = await handleContactList();
         const isSuccess = verifyResponseRequest(resultReq, logout!!, navigate);
         if (!isSuccess) {
             setIsFetching(false);
@@ -34,13 +33,13 @@ export default function GenericTypesListPage() {
     const handleDelete = async (id: string) => {
         setIsFetching(true);
 
-        const resultReq = await handleGenericDelete(id);
+        const resultReq = await handleContactDelete(id);
         const isSuccess = verifyResponseRequest(resultReq, logout!!, navigate);
         if (!isSuccess) {
             setIsFetching(false);
             return;
         }
-        await handleList();
+        await handleListData();
     };
 
     const columns: SelectColumnType[] = [
@@ -50,35 +49,35 @@ export default function GenericTypesListPage() {
             isVisible: true,
         },
         {
-            label: "Token",
-            value: "token",
+            label: "Nome",
+            value: "name",
             isVisible: true,
         },
         {
-            label: "Valor",
-            value: "value",
+            label: "Mensagem",
+            value: "message",
             isVisible: true,
         },
         {
-            label: "Descrição",
-            value: "description",
+            label: "Contato",
+            value: "contact",
             isVisible: true,
         },
     ];
 
     useEffect(() => {
-        handleList();
+        handleListData();
     }, []);
 
     return (
         <ListScreenComponent
-            title="Tipos"
-            isCreate={true}
-            createRoute={routesPages.genericTypes.create}
-            isEdit={true}
-            editRoute={routesPages.genericTypes.edit}
-            isDelete={true}
+            title="Contatos"
+            createRoute=""
+            isCreate={false}
+            editRoute=""
+            isEdit={false}
             handleDelete={handleDelete}
+            isDelete={false}
             isFetching={isFetching}
             columns={columns}
             data={data}
